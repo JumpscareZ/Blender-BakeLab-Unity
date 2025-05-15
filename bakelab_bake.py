@@ -75,7 +75,7 @@ class Baker(Operator):
         
         self.default_use_pass_diffuse  = bake_settings.use_pass_diffuse
         self.default_use_pass_glossy   = bake_settings.use_pass_glossy
-        self.default_use_pass_trans    = 
+        self.default_use_pass_trans    = bake_settings.use_pass_transmission
         self.default_use_pass_alpha    = bake_settings.use_pass_alpha
         #self.default_use_pass_sss      = bake_settings.use_pass_subsurface # No Longer in 2.83
         #self.default_use_pass_ao       = bake_settings.use_pass_ambient_occlusion # No Longer in 3.0
@@ -124,7 +124,7 @@ class Baker(Operator):
     
         bake_settings.use_pass_diffuse           = self.default_use_pass_diffuse
         bake_settings.use_pass_glossy            = self.default_use_pass_glossy
-              = self.default_use_pass_trans
+        bake_settings.use_pass_transmission      = self.default_use_pass_trans
         bake_settings.use_pass_alpha             = self.default_use_pass_alpha
         #bake_settings.use_pass_subsurface        = self.default_use_pass_sss # No Longer in 2.83
         #bake_settings.use_pass_ambient_occlusion = self.default_use_pass_ao # No Longer in 3.0
@@ -355,7 +355,7 @@ class Baker(Operator):
     
             bake_settings.use_pass_diffuse           = map.combined_diffuse
             bake_settings.use_pass_glossy            = map.combined_glossy
-                  = map.combined_transmission
+            bake_settings.use_pass_transmission      = map.combined_transmission
             bake_settings.use_pass_alpha             = map.combined_alpha
             #bake_settings.use_pass_subsurface        = map.combined_subsurface
             #bake_settings.use_pass_ambient_occlusion = map.combined_ambient_occlusion
