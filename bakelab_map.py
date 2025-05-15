@@ -15,6 +15,7 @@ from bpy.props import (
         )
 
 class BakeLabMap(PropertyGroup):
+            """not yet sure how this is used exactly"""
     enabled : BoolProperty(name = '', default = True)
     type : EnumProperty(
             name = 'Type',
@@ -34,6 +35,7 @@ class BakeLabMap(PropertyGroup):
                     ('Combined',    'Combined',''),
                     ('CustomPass',  'Custom Pass',''),
                     ('AO',          'Ambient Occlusion',''),
+                    ('DetailMask',  'Detail Mask',''),
                     ('Displacement','Displacement','')
             ),
             default = 'Albedo'
@@ -203,11 +205,14 @@ class BakeLabAddMapItem(bpy.types.Operator):
                     ('Albedo',      'Albedo',''),
                     ('Normal',      'Normal',''),
                     ('Glossy',      'Glossy',''),
+                    ('Metallic',    'Metallic',''),
                     ('Roughness',   'Roughness',''),
+                    ('Smoothness',  'Smoothness',''),
                     ('Emission',    'Emission',''),
                     ('Diffuse',     'Diffuse',''),
                     ('Subsurface',  'Subsurface',''),
                     ('Transmission','Transmission',''),
+                    ('Alpha',       'Alpha',''),
                     ('Shadow',      'Shadow',''),
                     ('Environment', 'Environment',''),
                     ('UV',          'UV',''),
@@ -215,6 +220,7 @@ class BakeLabAddMapItem(bpy.types.Operator):
                     ('Combined',    'Combined',''),
                     ('CustomPass',  'Custom Pass',''),
                     ('AO',          'Ambient Occlusion',''),
+                    ('DetailMask',  'Detail Mask',''),
                     ('Displacement','Displacement','')
             ),
             default = 'Albedo'
@@ -343,11 +349,15 @@ class BakeLabAddMapItem(bpy.types.Operator):
             item.img_name = '*_d'
             item.samples  = 8
         if self.type == 'Emission':
-            item.img_name = '*_e'
+            item.img_name = '*_Emission'
             item.samples  = 4
         if self.type == 'Transmission':
             item.img_name = '*_a'
             item.samples  = 8
+        if self.type == 'Mask':
+            item.img_name = '*_Mask'
+            item.samples  = 4
+            item.color_space = 'Non-Color'
         if self.type == 'UV':
             item.img_name = '*_uv'
             item.samples  = 1
@@ -462,8 +472,8 @@ class BakeLabShowPassPresets(Operator):
                 ('Anisotropic',                          'Anisotropic',''),
                 ('Sheen',                                'Sheen',''),
                 ('Clearcoat',                            'Clearcoat',''),
-                ('Transmission',                         'Transmission ',''),
-                ('Alpha',                                'Alpha ','')
+                ('Transmission',                         'Transmission',''),
+                ('Alpha',                                'Alpha','')
             )
         )
     
