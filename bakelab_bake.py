@@ -365,34 +365,37 @@ class Baker(Operator):
             bake_settings.use_pass_indirect        = map.bake_indirect
             bake_settings.use_pass_color           = map.bake_color
         
-        m_type = map.type
+        m_type = map.type #defined for each of the main texure passes inputs
         if m_type == 'Albedo':
             bake_type = 'EMIT'
-        if m_type == 'Combined':
-            bake_type = 'COMBINED'
-        if m_type == 'AO':
-            bake_type = 'AO'
-        if m_type == 'Displacement':
-            bake_type = 'EMIT'
-        if m_type == 'Shadow':
-            bake_type = 'SHADOW'
         if m_type == 'Normal':
             bake_type = 'NORMAL'
-        if m_type == 'UV':
-            bake_type = 'UV'
+        if m_type == 'Glossy':
+            bake_type = 'GLOSSY'
         if m_type == 'Roughness':
             bake_type = 'ROUGHNESS'
         if m_type == 'Emission':
             bake_type = 'EMIT'
-        if m_type == 'Environment':
-            bake_type = 'ENVIRONMENT'
         if m_type == 'Diffuse':
             bake_type = 'DIFFUSE'
-        if m_type == 'Glossy':
-            bake_type = 'GLOSSY'
         if m_type == 'Subsurface':
             bake_type = 'Transmission'
+        if m_type == 'Shadow':
+            bake_type = 'SHADOW'
+        if m_type == 'Environment':
+            bake_type = 'ENVIRONMENT'
+        if m_type == 'UV':
+            bake_type = 'UV'
+        
+        if m_type == 'Combined':
+            bake_type = 'COMBINED'
         if m_type == 'CustomPass':
+            bake_type = 'EMIT'
+        if m_type == 'AO':
+            bake_type = 'AO'
+        if m_type == 'DetailMask':
+            bake_type = 'EMIT'
+        if m_type == 'Displacement':
             bake_type = 'EMIT'
         return bake_type
     
@@ -544,6 +547,8 @@ class Baker(Operator):
                     self.passes_to_emit_node(mat, 'Albedo,Color,Base Color,Col,Paint Color')
                 if map.type == 'Displacement':
                     self.displacement_to_color(mat)
+                if map.type == 'DetailMask':
+                    self.passes_to_emit_node(mat, 'Mask')
                     
         ###################
         

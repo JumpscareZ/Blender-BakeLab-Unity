@@ -15,7 +15,7 @@ from bpy.props import (
         )
 
 class BakeLabMap(PropertyGroup):
-            """not yet sure how this is used exactly"""
+            """These are the main bake maps the user can add to their preferred texture baking passes"""
     enabled : BoolProperty(name = '', default = True)
     type : EnumProperty(
             name = 'Type',
